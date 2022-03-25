@@ -1,14 +1,10 @@
-.main {
-  &-navigation {
-    background-color: #2c74f2;
-    padding: 8px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
+.main-navigation {
+  display: flex;
+  justify-content: space-between;
 
-    &-buttons {
-      display: flex;
-      gap: 16px;
+  &__buttons {
+    > *:not(:last-child) {
+      margin-right: 8px;
     }
   }
 }

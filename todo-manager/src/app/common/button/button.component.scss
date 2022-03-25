@@ -1,0 +1,20 @@
+$blue: rgb(0, 0, 255);
+$grey: rgb(128, 128, 128);
+
+.button {
+  border: none;
+  color: white;
+  padding: 5px 10px;
+
+  &--circle {
+    border-radius: 16px;
+  }
+
+  &__primary {
+    background-color: $blue;
+  }
+
+  &__secondary {
+    background-color: $grey;
+  }
+}

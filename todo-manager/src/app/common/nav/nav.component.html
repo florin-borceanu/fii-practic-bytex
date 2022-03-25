@@ -1,8 +1,13 @@
-<nav class="main-navigation">
+<mat-toolbar class="main-navigation" color="primary">
   <span>Todo manager</span>
 
-  <span class="main-navigation-buttons">
-    <button [routerLink]="['/']">Homepage</button>
-    <button [routerLink]="['/todo']">List</button>
-  </span>
-</nav>
+  <div class="main-navigation__buttons">
+    <app-button
+        [routerLink]="['/']"
+    >Homepage</app-button>
+
+    <app-button
+      [routerLink]="['/todo']"
+    >List</app-button>
+  </div>
+</mat-toolbar>
