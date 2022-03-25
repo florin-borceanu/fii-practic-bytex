@@ -1,0 +1,14 @@
+<button
+  [ngClass]="color === 'primary' ? 'button__primary' : 'button__secondary'"
+  [class.button--circle]="circle"
+  (click)="onClick()"
+  class="button"
+>
+  <ng-container *ngIf="loading; else content">
+    loading
+  </ng-container>
+
+  <ng-template #content>
+    <ng-content></ng-content>
+  </ng-template>
+</button>

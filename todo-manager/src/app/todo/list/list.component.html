@@ -9,16 +9,24 @@
       (change)="onValueChange($event)"
     />
 
-    <button (click)="addNewTodo()">Add new todo</button>
+    <app-button color="primary" (click)="addNewTodo()">Add new todo</app-button>
   </span>
 
   <main class="todo-content">
     <span *ngFor="let todo of todoList; let i = index" class="todo-item">
       <app-item [item]="todo" (todoChanged)="onTodoChanged(i)"></app-item>
 
-      <button (click)="onRemoveTodo(i)" class="todo-remove">Remove</button>
+      <app-button
+        [circle]="true"
+        [loading]="true"
+        (click)="onRemoveTodo(i)"
+      >Remove</app-button>
 
-      <button [routerLink]="['/todo/details', i]" class="todo-remove">Details</button>
+      <app-button
+        [circle]="true"
+        [routerLink]="['/todo/details', i]"
+        color="primary"
+      >Details</app-button>
     </span>
   </main>
 </div>

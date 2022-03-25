@@ -1,23 +1,29 @@
+%placeholder {
+  display: flex;
+  flex-direction: column;
+}
+
 .todo {
   &-container {
-    display: flex;
-    flex-direction: column;
+    @extend %placeholder;
     height: 100%;
     padding: 100px;
     gap: 16px;
   }
 
   &-content {
-    display: flex;
-    flex-direction: column;
+    @extend %placeholder;
     flex-grow: 1;
     gap: 16px;
   }
 
   &-input {
-    display: flex;
-    flex-direction: column;
+    @extend %placeholder;
     gap: 8px;
+
+    input {
+      max-width: 200px;
+    }
   }
 
   &-item {
@@ -27,6 +33,7 @@
 
   &-remove {
     background-color: red;
+    border-radius: 16px;
     color: white;
     border: none;
   }
