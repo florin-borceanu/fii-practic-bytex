@@ -1,27 +1,20 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  Output,
-} from '@angular/core';
-import { Todo } from '../../todo.types';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Todo } from 'src/app/types';
 
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ItemComponent implements OnDestroy {
-  @Input() item?: Todo;
-  @Output() todoChanged: EventEmitter<void> = new EventEmitter<void>();
+export class ItemComponent {
+  @Input() public item!: Todo;
+  @Output() public checked: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  ngOnDestroy(): void {
-    console.log('component destroyed');
-  }
-
-  public onValueChange(event: Event): void {
-    // console.log(event)
-    this.todoChanged.emit();
+  public onValueChange(event?: Event): void {
+    this.item.checked = !!(
+      (event?.target as HTMLInputElement)?.checked ?? !this.item.checked
+    );
+    this.checked.emit(this.item.checked);
   }
 }

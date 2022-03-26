@@ -1,11 +1,6 @@
 :host {
+  align-items: center;
   display: flex;
-  flex-direction: column;
   height: 100%;
-}
-
-.main {
-  &-content {
-    flex-grow: 1;
-  }
+  justify-content: center;
 }

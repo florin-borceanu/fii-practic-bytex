@@ -1,9 +1,9 @@
-<span *ngIf="item" [class.checked]="item.checked" class="todo-item">
+<span [class.checked]="item.checked" class="todo-item">
   <input
     [checked]="item.checked"
     (change)="onValueChange($event)"
     type="checkbox"
   />
 
-  {{ item.text }}
+  <span>{{ item.text }}</span>
 </span>

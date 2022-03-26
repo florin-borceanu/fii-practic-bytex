@@ -1,32 +1,37 @@
-<div class="todo-container">
-  <span class="todo-input">
-    <label for="todo">Add new todo item</label>
+<div class="todo-input">
+  <label for="todo">Add new todo item</label>
 
-    <input
-      type="text"
-      name="todo"
-      [value]="newTodoName"
-      (change)="onValueChange($event)"
-    />
+  <input
+    type="text"
+    name="todo"
+    [value]="newTodoName"
+    (change)="onValueChange($event)"
+  />
 
-    <app-button color="primary" (click)="addNewTodo()">Add new todo</app-button>
-  </span>
-
-  <main class="todo-content">
-    <span *ngFor="let todo of todoList; let i = index" class="todo-item">
-      <app-item [item]="todo" (todoChanged)="onTodoChanged(i)"></app-item>
-
-      <app-button
-        [circle]="true"
-        [loading]="true"
-        (click)="onRemoveTodo(i)"
-      >Remove</app-button>
-
-      <app-button
-        [circle]="true"
-        [routerLink]="['/todo/details', i]"
-        color="primary"
-      >Details</app-button>
-    </span>
-  </main>
+  <app-button color="primary" (click)="addTodo()">Add new todo</app-button>
 </div>
+
+<main class="todo-content">
+  <ng-container *ngIf="data$ | async as data; else showLoading">
+    <ng-container *ngIf="!data.isLoading; else showLoading">
+      <ng-container *ngIf="data.toDos?.length; else showNoData">
+        <div *ngFor="let todo of data.toDos; let i = index" class="todo-item">
+          <app-item [item]="todo"></app-item>
+
+          <app-button [circle]="true" (click)="onRemoveTodo(i)"
+            >Remove</app-button
+          >
+
+          <app-button
+            [circle]="true"
+            [routerLink]="['/todo/details', i]"
+            color="primary"
+            >Details</app-button
+          >
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <ng-template #showLoading> Loading... </ng-template>
+  <ng-template #showNoData> No to dos added yet. </ng-template>
+</main>
