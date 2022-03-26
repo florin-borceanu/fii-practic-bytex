@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RequestService } from 'src/app/request.service';
-import { Todo } from '../todo.types';
+import { ToDosService } from 'src/app/services';
+import { Todo } from 'src/app/types';
 
 @Component({
   selector: 'app-details',
@@ -14,7 +14,7 @@ export class DetailsComponent implements OnInit {
 
   constructor(
     private router: ActivatedRoute,
-    private requestService: RequestService
+    private requestService: ToDosService
   ) {}
 
   public ngOnInit(): void {
@@ -27,7 +27,7 @@ export class DetailsComponent implements OnInit {
       // this.localTodo = this.todoList[(el as any).id];
       console.log('roter param was received');
       this.requestService
-        .getByIdRequest(parseInt((el as any).id as string) + 1)
+        .getById(parseInt((el as any).id as string) + 1)
         .subscribe((todo: Todo) => {
           this.localTodo = todo;
         });

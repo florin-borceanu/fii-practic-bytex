@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RequestService } from 'src/app/request.service';
-import { Todo } from '../todo.types';
+import { Observable } from 'rxjs';
+import { ListService } from './list.service';
+import { ListData } from './list.types';
 
 @Component({
   selector: 'app-list',
@@ -8,46 +9,23 @@ import { Todo } from '../todo.types';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  public todoList: Todo[] = [];
-
+  public data$: Observable<ListData> = this.listService.data$;
   public newTodoName: string = '';
 
-  constructor(private requestService: RequestService) {}
+  constructor(private listService: ListService) {}
 
   public ngOnInit(): void {
-    //  populare pe baza de local storage
-    // const todos = localStorage.getItem('todos');
-    // this.todoList = todos ? JSON.parse(todos) : [];
-    // ##########
-    // populare pe baza de requesturi
-    this.requestService.getRequest().subscribe((response: Todo[]) => {
-      this.todoList = response;
-    });
+    this.listService.getToDos();
   }
 
-  public onTodoChanged(item: number): void {
-    this.todoList[item].checked = !this.todoList[item].checked;
-
-    this.updateLocalStorage();
-  }
-
-  public addNewTodo(): void {
-    if (this.newTodoName.length) {
-      this.todoList.push({
-        text: this.newTodoName,
-        checked: false,
-      });
-      this.newTodoName = '';
+  public addTodo(): void {
+    if (!this.newTodoName.length) {
+      return;
     }
 
-    this.updateLocalStorage();
+    this.listService.postToDo(false, this.newTodoName);
 
-    this.requestService
-      .postRequest({
-        text: this.newTodoName,
-        checked: false,
-      })
-      .subscribe();
+    this.newTodoName = '';
   }
 
   public onValueChange(event: any): void {
@@ -55,12 +33,7 @@ export class ListComponent implements OnInit {
   }
 
   public onRemoveTodo(index: number): void {
-    this.todoList.splice(index, 1);
-
-    this.updateLocalStorage();
-  }
-
-  private updateLocalStorage(): void {
-    localStorage.setItem('todos', JSON.stringify(this.todoList));
+    console.log(`remove todo`);
+    // this.todoList.splice(index, 1);
   }
 }
